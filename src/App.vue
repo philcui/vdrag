@@ -1,26 +1,26 @@
 <template>
   <div id="app">
-    <!--<img src="./assets/logo.png">-->
     <!--<router-view></router-view>-->
-    <div>x:{{val.x}}</div>
-    <div>y:{{val.y}}</div>
-    <input type="text" v-drag='position' id="input-drag">
+    <input type="text" v-drag id="input-drag">
     <div v-drag id="hehe"></div>
+    <draggable></draggable>
   </div>
 </template>
 
 <script>
+import draggable from './components/draggable.vue'
 export default {
   name: 'app',
+  components:{
+    'draggable':draggable
+  },
   data(){
     return {
       val: '123'
     }
   },
   methods:{
-    position(obj){
-      this.val = obj;
-    }
+    
   }
 }
 </script>

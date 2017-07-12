@@ -6,8 +6,9 @@ import router from './router'
 
 Vue.config.productionTip = false
 
+//自定义拖拽指令
 Vue.directive('drag', {
-  bind: function(el, binding){
+  bind: function(el, binding, vnode){
      let dragItem = el;
      let self = this;
      //鼠标按下，在拖拽物上触发点击
@@ -22,7 +23,6 @@ Vue.directive('drag', {
          let top = el.clientY - disY;
          dragItem.style.left = left + 'px';
          dragItem.style.top = top + 'px';
-         binding.value({x:el.pageX,y:el.pageY});
        }
        //鼠标松开，释放事件
        document.onmouseup = function(el){
@@ -37,6 +37,6 @@ Vue.directive('drag', {
 new Vue({
   el: '#app',
   router,
-  template: '<App/>',
+  template: '<App @move="move"/>',
   components: { App }
 })
