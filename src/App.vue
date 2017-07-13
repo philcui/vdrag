@@ -1,9 +1,19 @@
 <template>
   <div id="app">
     <!--<router-view></router-view>-->
-    <input type="text" v-drag id="input-drag">
-    <div v-drag id="hehe"></div>
-    <draggable></draggable>
+    <input type="text" v-drag id="input-drag" value="拖拽指令实现">
+    <div v-drag id="hehe">拖拽指令实现</div>
+    <div class="list">
+      <draggable class="dragItem" v-for="(dragItem, index) in dragList" :key="index">
+        <div>{{dragItem.name}}</div>
+      </draggable>
+    </div>
+  
+    <div class="list">
+      <draggable class="dragItem" v-for="(dragItem, index) in dragList" :key="index">
+        <div>{{dragItem.name + '1'}}</div>
+      </draggable>
+    </div>
   </div>
 </template>
 
@@ -16,7 +26,11 @@ export default {
   },
   data(){
     return {
-      val: '123'
+      dragList:[
+        {name: 'cui'},
+        {name: 'xi'},
+        {name: 'hang'}
+      ]
     }
   },
   methods:{
@@ -42,5 +56,24 @@ export default {
   width: 100px;
   background: red;
   position: absolute;
+}
+.dragItem{
+  width: 100px;
+  height: 100px;
+  background-color: #0dbc79;
+  border: 1px solid #000;
+  text-align: center;
+  line-height: 100px;
+  border-radius: 10px;
+  color: white;
+  user-select: none;
+  float: left;
+  -webkit-user-drag: element;
+  -khtml-user-drag: element;
+  transition: all 1s ease;
+}
+.list{
+  overflow: hidden;
+  margin-top: 100px;
 }
 </style>

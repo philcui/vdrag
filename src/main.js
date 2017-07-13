@@ -37,6 +37,6 @@ Vue.directive('drag', {
 new Vue({
   el: '#app',
   router,
-  template: '<App @move="move"/>',
+  template: '<App/>',
   components: { App }
 })
