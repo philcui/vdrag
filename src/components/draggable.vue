@@ -22,23 +22,28 @@ export default {
   methods:{
     dragStart(event){
       this.isDragging = true
+      event.dataTransfer.effectAllowed = 'move';
+      event.dataTransfer.setData('text/html', event.currentTarget.innerHTML)
     },
     dragOver(event){
       this.isDragOver = true;
     },
     dragEnter(event){
-      
+      console.log('enter')
     },
     dragLeave(event){
       this.isDragOver = false;
+      console.log('leave')
     },
     dragEnd(event){
       this.isDragging = false;
       this.isDragOver = false;
+      console.log('end')
     },
     drop(event){
       this.isDragging = false;
       this.isDragOver = false;
+      event.currentTarget.innerHTML = event.dataTransfer.getData('text/html');
       console.log('drop')
     }  
   },
