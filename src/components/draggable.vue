@@ -16,17 +16,25 @@ export default {
   data(){
     return {
       isDragOver: false,
-      isDragging: false
+      isDragging: false,
+      dragElement: null
     }
   },
   methods:{
     dragStart(event){
       this.isDragging = true
       event.dataTransfer.effectAllowed = 'move';
-      event.dataTransfer.setData('text/html', event.currentTarget.innerHTML)
+      event.dataTransfer.setData('Text', event.currentTarget.innerHTML)
+      this.dragElement = event.target
     },
     dragOver(event){
       this.isDragOver = true;
+      event.dataTransfer.dropEffect = 'move';
+      var target = event.target;
+      var list = document.querySelector('.list')
+      if(this.dragElement && target && this.dragElement != target){
+        list.insertBefore(this.dragElement, target.nextSibling || target)
+      }
     },
     dragEnter(event){
       console.log('enter')
@@ -43,7 +51,7 @@ export default {
     drop(event){
       this.isDragging = false;
       this.isDragOver = false;
-      event.currentTarget.innerHTML = event.dataTransfer.getData('text/html');
+      //event.currentTarget.innerHTML = event.dataTransfer.getData('Text');
       console.log('drop')
     }  
   },
