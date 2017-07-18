@@ -1,6 +1,8 @@
 # vdrag
 
-> A Vue.js project
+> A simple vue drag and drop to sort
+
+![img]()
 
 ## Build Setup
 

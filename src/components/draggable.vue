@@ -25,15 +25,13 @@ export default {
       this.isDragging = true
       event.dataTransfer.effectAllowed = 'move';
       event.dataTransfer.setData('Text', event.currentTarget.innerHTML)
-      this.dragElement = event.target
+      this.dragElement = event.currentTarget
     },
     dragOver(event){
-      this.isDragOver = true;
-      event.dataTransfer.dropEffect = 'move';
-      var target = event.target;
-      var list = document.querySelector('.list')
-      if(this.dragElement && target && this.dragElement != target){
-        list.insertBefore(this.dragElement, target.nextSibling || target)
+      if(event.currentTarget != this.dragElement){
+        this.isDragOver = true;
+        event.dataTransfer.dropEffect = 'move';
+        console.log('gost!!!!')
       }
     },
     dragEnter(event){

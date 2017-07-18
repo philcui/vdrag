@@ -1,28 +1,26 @@
 <template>
   <div id="app">
     <!--<router-view></router-view>-->
-    <input type="text" v-drag id="input-drag" value="拖拽指令实现">
-    <div v-drag id="hehe">拖拽指令实现</div>
-    <div class="list">
-      <draggable class="dragItem" v-for="(dragItem, index) in dragList" :key="index">
+    <!-- <input type="text" v-drag id="input-drag" value="拖拽指令实现"> -->
+    <!-- <div v-drag id="hehe">拖拽指令实现</div> -->
+     <!-- <div class="list">
+      <draggable class="dragItem" v-for="dragItem in dragList" :key="dragItem">
         <div>{{dragItem.name}}</div>
       </draggable>
-    </div>
-  
-    <div class="list">
-      <draggable class="dragItem" v-for="(dragItem, index) in dragList" :key="index">
-        <div>{{dragItem.name + '1'}}</div>
-      </draggable>
-    </div>
+    </div>  -->
+    <sortlist @sort='listChange'></sortlist>
+    <div>{{listJson}}</div>
   </div>
 </template>
 
 <script>
 import draggable from './components/draggable.vue'
+import sortlist from './components/sortable.vue'
 export default {
   name: 'app',
   components:{
-    'draggable':draggable
+    'draggable':draggable,
+    'sortlist': sortlist
   },
   data(){
     return {
@@ -30,11 +28,14 @@ export default {
         {name: 'cui'},
         {name: 'xi'},
         {name: 'hang'}
-      ]
+      ],
+      listJson: this.dragList
     }
   },
   methods:{
-    
+    listChange(data){
+      this.listJson = data; 
+    }
   }
 }
 </script>
