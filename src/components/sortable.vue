@@ -1,19 +1,12 @@
 <template>
-  <div @click="del">
+  <div 
+    @onDragStart='dragStart'
+    @onDragOver='dragStart'
+    @onDragEnter='dragEnter'
+    @onDragLeave='dragLeave'
+    @onDrop='drop'>
     <transition-group name="flip-list">
-      <div class="item" 
-        draggable="true"
-        @dragstart="dragStart($event, index)" 
-        @dragover.prevent="dragOver($event, index)"
-        @dragenter="dragEnter" 
-        @dragleave="dragLeave" 
-        @dragend="dragEnd" 
-        @drop.stop="drop" 
-        v-for="(item, index) in sortList" 
-        :key='item'
-        :class="{gost: item.isGost}">
-        {{item.name}}
-      </div>
+      <slot></slot>
     </transition-group>
   </div>
 </template>
@@ -23,17 +16,13 @@ import {draggable} from '../core/draggable.js'
 export default {
   data(){
     return {
-      sortList:[
-        {name: 'cui', isGost: false},
-        {name: 'xi', isGost: false},
-        {name: 'hang', isGost: false}
-      ],
       dragElement: null,
       isChanging: false,
       dragIndex: null,
       targetIndex: null
     }
   },
+  props:['sortList'],
   methods:{
     dragStart(event, index){
       event.dataTransfer.effectAllowed = 'move';
