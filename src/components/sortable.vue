@@ -1,5 +1,5 @@
 <template>
-  <div @click="change">
+  <div @click="del">
     <transition-group name="flip-list">
       <div class="item" 
         draggable="true"
@@ -76,6 +76,9 @@ export default {
       this.dragIndex = targetIndex
       this.$set(this.sortList[targetIndex], 'isGost', true)
       this.$emit('sort', this.sortList);
+    },
+    del(){
+      this.sortList.pop();
     } 
   },
   created(){
@@ -98,10 +101,10 @@ export default {
     -webkit-user-drag: element;
     -khtml-user-drag: element;
     background: #ccc;
-    /* transition: all 0.5s;  */
+     transition: all 0.3s;  
   }
   .flip-list-move{
-    transition: transform 0.5s;
+    transition: transform 0.3s;
   }
   .gost{
      opacity: 0.4;
