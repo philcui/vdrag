@@ -8,7 +8,7 @@
         <div>{{dragItem.name}}</div>
       </draggable>
     </div>  -->
-    <sortlist @sort='listChange' :sortlist='dragList'>
+    <sortlist @sort='listChange' :sortList='dragList'>
       <sortItem v-for="(item, index) in dragList" :key="item" :item='item' :index='index'>
       </sortItem>      
     </sortlist>
