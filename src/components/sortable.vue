@@ -79,7 +79,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
   .item{
     border: 1px solid #333;
     margin-bottom: 10px;
