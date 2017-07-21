@@ -65,10 +65,7 @@ export default {
       this.dragIndex = targetIndex
       this.$set(this.sortList[targetIndex], 'isGost', true)
       this.$emit('sort', this.sortList);
-    },
-    del(){
-      this.sortList.pop();
-    } 
+    }
   },
   created(){
 

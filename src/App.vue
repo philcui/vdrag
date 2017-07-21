@@ -39,7 +39,8 @@ export default {
   },
   methods:{
     listChange(data){
-      this.listJson = data; 
+      this.listJson = data;
+      this.dragList = data; 
     }
   }
 }
