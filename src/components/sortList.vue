@@ -1,25 +1,39 @@
 <template>
   <div>
     <transition-group name="flip-list">
-      <slot></slot>
+      <div class="item" 
+        draggable="true"
+        @dragstart="dragStart($event, index)" 
+        @dragover.prevent="dragOver($event, index)"
+        @dragenter="dragEnter" 
+        @dragleave="dragLeave" 
+        @dragend="dragEnd" 
+        @drop.stop="drop" 
+        v-for="(item, index) in sortList" 
+        :key='item'
+        :class="{gost: item.isGost}">
+        {{item.name}}
+      </div>
     </transition-group>
   </div>
 </template>
 
 <script>
-//todo item作为属性、数据传入sortable组件，作为组件的一部分，列表和sortable是一个整体
 import {draggable} from '../core/draggable.js'
-import bus from './bus.js'
 export default {
   data(){
     return {
+      sortList:[
+        {name: 'cui', isGost: false},
+        {name: 'xi', isGost: false},
+        {name: 'hang', isGost: false}
+      ],
       dragElement: null,
       isChanging: false,
       dragIndex: null,
       targetIndex: null
     }
   },
-  props:['sortList'],
   methods:{
     dragStart(event, index){
       event.dataTransfer.effectAllowed = 'move';
@@ -62,23 +76,17 @@ export default {
       this.dragIndex = targetIndex
       this.$set(this.sortList[targetIndex], 'isGost', true)
       this.$emit('sort', this.sortList);
-    }
+    } 
   },
   created(){
-
   },
   mounted(){
-    bus.$on('dragStart', (event, index) => this.dragStart(event, index));
-    bus.$on('dragOver', (event, index) => this.dragOver(event, index));
-    bus.$on('dragEnter', (event) => this.dragEnter(event));
-    bus.$on('dragLeave', (event) => this.dragLeave(event));
-    bus.$on('dragEnd', (event) => this.dragEnd(event));
-    bus.$on('drop', (event) => this.drop(event));
+    
   }
 }
 </script>
 
-<style>
+<style scoped>
   .item{
     border: 1px solid #333;
     margin-bottom: 10px;
@@ -89,13 +97,12 @@ export default {
     -webkit-user-drag: element;
     -khtml-user-drag: element;
     background: #ccc;
-     transition: all 0.3s;  
+    /* transition: all 0.5s;  */
   }
   .flip-list-move{
-    transition: transform 0.3s;
+    transition: transform 0.5s;
   }
   .gost{
      opacity: 0.4;
   } 
 </style>
-
