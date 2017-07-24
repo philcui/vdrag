@@ -9,11 +9,12 @@
     @drop.stop="drop($event, index)" 
     :key='item'
     :class="{gost: item.isGost}">
-      {{item.name}}
+      <slot></slot>
   </div>
 </template>
 
 <script>
+import bus from './bus.js'
 export default {
   data(){
     return {
@@ -23,25 +24,25 @@ export default {
   props:['item', 'index'],
   methods:{
     dragStart(event, index){
-      this.$emit('onDragStart', event, index)
+      bus.$emit('dragStart', event, index)
     },
     dragOver(event, index){
-      this.$emit('onDragOver', event, index)
+      bus.$emit('dragOver', event, index)
     },
     dragEnter(event, index){
-      this.$emit('onDragEnter', event, index)
+      bus.$emit('dragEnter', event, index)
       console.log('enter')
     },
     dragLeave(event, index){
-      this.$emit('onDragLeave', event, index)
+      bus.$emit('dragLeave', event, index)
       console.log('leave')
     },
     dragEnd(event, index){
-      this.$emit('onDragEnd', event, index)
+      bus.$emit('dragEnd', event, index)
       console.log('end')
     },
     drop(event, index){
-      this.$emit('onDrop', event, index)
+      bus.$emit('drop', event, index)
       console.log('drop')
     }
   },

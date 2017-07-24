@@ -1,10 +1,5 @@
 <template>
-  <div 
-    @onDragStart='dragStart'
-    @onDragOver='dragStart'
-    @onDragEnter='dragEnter'
-    @onDragLeave='dragLeave'
-    @onDrop='drop'>
+  <div>
     <transition-group name="flip-list">
       <slot></slot>
     </transition-group>
@@ -13,6 +8,7 @@
 
 <script>
 import {draggable} from '../core/draggable.js'
+import bus from './bus.js'
 export default {
   data(){
     return {
@@ -71,7 +67,12 @@ export default {
 
   },
   mounted(){
-    
+    bus.$on('dragStart', (event, index) => this.dragStart(event, index));
+    bus.$on('dragOver', (event, index) => this.dragOver(event, index));
+    bus.$on('dragEnter', (event) => this.dragEnter(event));
+    bus.$on('dragLeave', (event) => this.dragLeave(event));
+    bus.$on('dragEnd', (event) => this.dragEnd(event));
+    bus.$on('drop', (event) => this.drop(event));
   }
 }
 </script>
