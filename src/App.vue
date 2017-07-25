@@ -9,7 +9,7 @@
       </draggable>
     </div>  -->
     
-    <!-- <sortlist @sort='listChange' :sortList='dragList'>
+     <!-- <sortlist @sort='listChange' :sortList='dragList'>
       <sortItem 
         v-for="(item, index) in dragList"
         :key="item" 
@@ -18,9 +18,13 @@
         {{item.name}}
       </sortItem>      
     </sortlist>
-    <div>{{listJson}}</div> -->
+    <div>{{listJson}}</div>  -->
 
     <sortable></sortable>
+
+    <SlotTest>
+      <h1>fdfdfd</h1>
+    </SlotTest>
   </div>
 </template>
 
@@ -29,13 +33,15 @@ import draggable from './components/draggable.vue'
 import sortlist from './components/sortable.vue'
 import sortItem from './components/sortItem.vue'
 import sortable from './components/sortList.vue'
+import SlotTest from './components/slotTest.vue'
 export default {
   name: 'app',
   components:{
     'draggable':draggable,
     'sortlist': sortlist,
     'sortItem': sortItem,
-    'sortable': sortable
+    'sortable': sortable,
+    'SlotTest': SlotTest
   },
   data(){
     return {
@@ -52,6 +58,12 @@ export default {
       this.listJson = data;
       this.dragList = data; 
     }
+  },
+  created(){
+
+  },
+  mounted(){
+    
   }
 }
 </script>

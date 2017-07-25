@@ -19,6 +19,7 @@
 </template>
 
 <script>
+//todo item作为属性、数据传入sortable组件，作为组件的一部分，列表和sortable是一个整体
 import {draggable} from '../core/draggable.js'
 export default {
   data(){
