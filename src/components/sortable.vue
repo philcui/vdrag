@@ -42,7 +42,8 @@ export default {
     },
     dragEnd(event){
       this.sortList.forEach((item, index, arr) => {
-        item.isGost = false;  
+        //item.isGost = false;
+        this.$set(item, 'isGost', false)  
       });
       console.log('end')
     },

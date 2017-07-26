@@ -9,7 +9,7 @@
       </draggable>
     </div>  -->
     
-     <!-- <sortlist @sort='listChange' :sortList='dragList'>
+    <sortlist @sort='listChange' :sortList='dragList'>
       <sortItem 
         v-for="(item, index) in dragList"
         :key="item" 
@@ -18,13 +18,15 @@
         {{item.name}}
       </sortItem>      
     </sortlist>
-    <div>{{listJson}}</div>  -->
+    <div>{{listJson}}</div>  
 
-    <sortable></sortable>
+    <!-- <sortable></sortable> -->
 
-    <SlotTest>
-      <h1>fdfdfd</h1>
-    </SlotTest>
+    <!-- <SlotTest>
+      <h1>slotTest</h1>
+      <h1>slotTest</h1>
+      <h1>slotTest</h1>
+    </SlotTest> -->
   </div>
 </template>
 
