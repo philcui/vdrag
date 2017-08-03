@@ -24,11 +24,6 @@ import {draggable} from '../core/draggable.js'
 export default {
   data(){
     return {
-      sortList:[
-        {name: 'cui', isGost: false},
-        {name: 'xi', isGost: false},
-        {name: 'hang', isGost: false}
-      ],
       dragElement: null,
       isChanging: false,
       dragIndex: null,

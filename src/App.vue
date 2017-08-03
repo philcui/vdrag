@@ -22,11 +22,11 @@
 
     <!-- <sortable></sortable> -->
 
-    <!-- <SlotTest>
+     <SlotTest v-model="name">
       <h1>slotTest</h1>
       <h1>slotTest</h1>
       <h1>slotTest</h1>
-    </SlotTest> -->
+    </SlotTest> 
   </div>
 </template>
 
@@ -48,11 +48,12 @@ export default {
   data(){
     return {
       dragList:[
-        {name: 'cui'},
-        {name: 'xi'},
-        {name: 'hang'}
+        {name: 'cui', isGost: false},
+        {name: 'xi', isGost: false},
+        {name: 'hang', isGost: false}
       ],
-      listJson: this.dragList
+      listJson: this.dragList,
+      name: [1, 2, 3]
     }
   },
   methods:{
