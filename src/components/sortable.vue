@@ -29,7 +29,7 @@ export default {
       targetIndex: null
     }
   },
-  props:['sortList'],
+  props:['sortList', 'eventId'],
   methods:{
     dragStart(event, index){
       event.dataTransfer.effectAllowed = 'move';
@@ -79,12 +79,12 @@ export default {
 
   },
   mounted(){
-    bus.$on('dragStart', (event, index) => this.dragStart(event, index));
-    bus.$on('dragOver', (event, index) => this.dragOver(event, index));
-    bus.$on('dragEnter', (event) => this.dragEnter(event));
-    bus.$on('dragLeave', (event) => this.dragLeave(event));
-    bus.$on('dragEnd', (event) => this.dragEnd(event));
-    bus.$on('drop', (event) => this.drop(event));
+    bus.$on('dragStart'+ this.eventId, (event, index) => this.dragStart(event, index));
+    bus.$on('dragOver'+ this.eventId, (event, index) => this.dragOver(event, index));
+    bus.$on('dragEnter'+ this.eventId, (event) => this.dragEnter(event));
+    bus.$on('dragLeave'+ this.eventId, (event) => this.dragLeave(event));
+    bus.$on('dragEnd'+ this.eventId, (event) => this.dragEnd(event));
+    bus.$on('drop'+ this.eventId, (event) => this.drop(event));
   }
 }
 </script>

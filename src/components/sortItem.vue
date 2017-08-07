@@ -21,28 +21,28 @@ export default {
 
     }
   },
-  props:['item', 'index'],
+  props:['item', 'index', 'eventId'],
   methods:{
     dragStart(event, index){
-      bus.$emit('dragStart', event, index)
+      bus.$emit('dragStart' + this.eventId, event, index)
     },
     dragOver(event, index){
-      bus.$emit('dragOver', event, index)
+      bus.$emit('dragOver' + this.eventId, event, index)
     },
     dragEnter(event, index){
-      bus.$emit('dragEnter', event, index)
+      bus.$emit('dragEnter' + this.eventId, event, index)
       console.log('enter')
     },
     dragLeave(event, index){
-      bus.$emit('dragLeave', event, index)
+      bus.$emit('dragLeave' + this.eventId, event, index)
       console.log('leave')
     },
     dragEnd(event, index){
-      bus.$emit('dragEnd', event, index)
+      bus.$emit('dragEnd' + this.eventId, event, index)
       console.log('end')
     },
     drop(event, index){
-      bus.$emit('drop', event, index)
+      bus.$emit('drop' + this.eventId, event, index)
       console.log('drop')
     }
   },

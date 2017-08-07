@@ -9,28 +9,29 @@
       </draggable>
     </div>  -->
     
-    <Sortable v-model='dragList'>
+    <Sortable v-model='dragList' :eventId='eventId1'>
       <SortItem 
         v-for="(item, index) in dragList"
         :key="item" 
         :item='item' 
-        :index='index'>
+        :index='index'
+        :eventId='eventId1'>
         {{item.name}}
       </SortItem>      
     </Sortable>
     <div>{{dragList}}</div>  
 
-    <Sortable v-model='dragList2'>
+    <Sortable v-model='dragList2' :eventId='eventId2'>
       <SortItem 
         v-for="(item, index) in dragList2"
         :key="item" 
         :item='item' 
-        :index='index'>
+        :index='index'
+        :eventId='eventId2'>
         {{item.name}}
       </SortItem>      
     </Sortable>
-
-    <!-- <sortList></sortList> -->
+    <div>{{dragList2}}</div>  
   </div>
 </template>
 
@@ -60,7 +61,9 @@ export default {
         {name: '1', isGost: false},
         {name: '2', isGost: false},
         {name: '3', isGost: false}
-      ]
+      ],
+      eventId1: '123',
+      eventId2: '234'
     }
   },
   methods:{
@@ -70,7 +73,7 @@ export default {
 
   },
   mounted(){
-    
+   
   }
 }
 </script>
