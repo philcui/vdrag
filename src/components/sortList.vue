@@ -67,7 +67,7 @@ export default {
       var tmp = this.sortList[dragIndex]
       this.sortList.splice(dragIndex, 1, this.sortList[targetIndex])
       this.sortList.splice(targetIndex, 1 , tmp)
-      //todo: mybe use nextTick & animation trigger
+      //todo: maybe use nextTick & animation trigger
       setTimeout(() => this.isChanging = false, 500);
       this.dragIndex = targetIndex
       this.$set(this.sortList[targetIndex], 'isGost', true)

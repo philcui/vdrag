@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div ref="haha">
     <transition-group name="flip-list">
       <slot></slot>
     </transition-group>
@@ -7,9 +7,20 @@
 </template>
 
 <script>
+/*
+  解耦sortItem与sortable的几种方案
+  1.new vue 后使用on&emit进行发布与订阅，但是所有的sortable共用了一个bus，导致无法
+  区分是哪个组件需要接收消息，或者可以通过创建sortable时，指定一个id，使订阅事件唯一；
+  2.将sortItem作为属性传入sortable,内部通过render渲染，不存在事件通知问题；
+  3.创建drag类，每个sortable拥有一个drag实例，事件挂接在ref上，在实例中处理。
+ */
 import {draggable} from '../core/draggable.js'
 import bus from './bus.js'
 export default {
+  model:{
+    prop: 'sortList',
+    event:'change'
+  },
   data(){
     return {
       dragElement: null,
@@ -57,7 +68,7 @@ export default {
       var tmp = this.sortList[dragIndex]
       this.sortList.splice(dragIndex, 1, this.sortList[targetIndex])
       this.sortList.splice(targetIndex, 1 , tmp)
-      //todo: mybe use nextTick & animation trigger
+      //todo: maybe use nextTick & animation trigger
       setTimeout(() => this.isChanging = false, 500);
       this.dragIndex = targetIndex
       this.$set(this.sortList[targetIndex], 'isGost', true)

@@ -9,40 +9,44 @@
       </draggable>
     </div>  -->
     
-    <sortlist @sort='listChange' :sortList='dragList'>
-      <sortItem 
+    <Sortable v-model='dragList'>
+      <SortItem 
         v-for="(item, index) in dragList"
         :key="item" 
         :item='item' 
         :index='index'>
         {{item.name}}
-      </sortItem>      
-    </sortlist>
-    <div>{{listJson}}</div>  
+      </SortItem>      
+    </Sortable>
+    <div>{{dragList}}</div>  
 
-    <!-- <sortable></sortable> -->
+    <Sortable v-model='dragList2'>
+      <SortItem 
+        v-for="(item, index) in dragList2"
+        :key="item" 
+        :item='item' 
+        :index='index'>
+        {{item.name}}
+      </SortItem>      
+    </Sortable>
 
-     <SlotTest v-model="name">
-      <h1>slotTest</h1>
-      <h1>slotTest</h1>
-      <h1>slotTest</h1>
-    </SlotTest> 
+    <!-- <sortList></sortList> -->
   </div>
 </template>
 
 <script>
 import draggable from './components/draggable.vue'
-import sortlist from './components/sortable.vue'
-import sortItem from './components/sortItem.vue'
-import sortable from './components/sortList.vue'
+import Sortable from './components/sortable.vue'
+import SortItem from './components/sortItem.vue'
+import SortList from './components/sortList.vue'
 import SlotTest from './components/slotTest.vue'
 export default {
   name: 'app',
   components:{
     'draggable':draggable,
-    'sortlist': sortlist,
-    'sortItem': sortItem,
-    'sortable': sortable,
+    'Sortable': Sortable,
+    'SortItem': SortItem,
+    'SortList': SortList,
     'SlotTest': SlotTest
   },
   data(){
@@ -52,15 +56,15 @@ export default {
         {name: 'xi', isGost: false},
         {name: 'hang', isGost: false}
       ],
-      listJson: this.dragList,
-      name: [1, 2, 3]
+      dragList2: [
+        {name: '1', isGost: false},
+        {name: '2', isGost: false},
+        {name: '3', isGost: false}
+      ]
     }
   },
   methods:{
-    listChange(data){
-      this.listJson = data;
-      this.dragList = data; 
-    }
+    
   },
   created(){
 
