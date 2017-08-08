@@ -31,18 +31,36 @@ export default {
   },
   props:['sortList', 'eventId'],
   methods:{
-    dragStart(event, index){
+    dragStart(event, index, item){
       event.dataTransfer.effectAllowed = 'move';
       event.dataTransfer.setData('Text', event.currentTarget.innerHTML)
       this.dragElement = event.currentTarget
       this.dragIndex = index
+      
+      //当前拖拽的DOM元素
+      bus.dragElement = this.dragElement;
+      //当前的需要安放的数据模型
+      bus.item = item;
+      bus.item.id = Date.now()
     },
-    dragOver(event, index){
-      if(event.currentTarget != this.dragElement && !this.isChanging){
+    dragOver(event, index, item){
+      console.log(item != bus.item)
+      console.log('bus:'+ JSON.stringify(bus.item))
+      console.log('item:'+ JSON.stringify(item))
+      //if(event.currentTarget != this.dragElement && !this.isChanging){
+      if(item.id != bus.item.id && !this.isChanging){
         console.log("gost")
         this.targetIndex = index
         event.dataTransfer.dropEffect = 'move';
-        this.change();
+        //this.change();
+        this.isChanging = true
+        var newItem = Object.assign({}, bus.item)
+        //newItem.id = Date.now()
+        this.sortList.splice(this.targetIndex, 0 , newItem)
+        // this.$nextTick(() => {
+        //   
+        // })
+        setTimeout(() => this.isChanging = false, 1000);
       }
     },
     dragEnter(event){
@@ -79,8 +97,8 @@ export default {
 
   },
   mounted(){
-    bus.$on('dragStart'+ this.eventId, (event, index) => this.dragStart(event, index));
-    bus.$on('dragOver'+ this.eventId, (event, index) => this.dragOver(event, index));
+    bus.$on('dragStart'+ this.eventId, (event, index, item) => this.dragStart(event, index, item));
+    bus.$on('dragOver'+ this.eventId, (event, index, item) => this.dragOver(event, index, item));
     bus.$on('dragEnter'+ this.eventId, (event) => this.dragEnter(event));
     bus.$on('dragLeave'+ this.eventId, (event) => this.dragLeave(event));
     bus.$on('dragEnd'+ this.eventId, (event) => this.dragEnd(event));

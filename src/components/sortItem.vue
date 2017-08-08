@@ -24,10 +24,11 @@ export default {
   props:['item', 'index', 'eventId'],
   methods:{
     dragStart(event, index){
-      bus.$emit('dragStart' + this.eventId, event, index)
+      console.log(this.item)
+      bus.$emit('dragStart' + this.eventId, event, index, this.item)
     },
     dragOver(event, index){
-      bus.$emit('dragOver' + this.eventId, event, index)
+      bus.$emit('dragOver' + this.eventId, event, index, this.item)
     },
     dragEnter(event, index){
       bus.$emit('dragEnter' + this.eventId, event, index)
@@ -47,7 +48,7 @@ export default {
     }
   },
   created(){
-
+    
   },
   mounted(){
     
