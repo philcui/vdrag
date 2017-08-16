@@ -1,10 +1,10 @@
-<template>
+<!--<template>
   <div ref="haha">
     <transition-group name="flip-list">
       <slot></slot>
     </transition-group>
   </div>
-</template>
+</template>-->
 
 <script>
 /*
@@ -94,7 +94,7 @@ export default {
     }
   },
   created(){
-
+    
   },
   mounted(){
     bus.$on('dragStart'+ this.eventId, (event, index, item) => this.dragStart(event, index, item));
@@ -103,6 +103,23 @@ export default {
     bus.$on('dragLeave'+ this.eventId, (event) => this.dragLeave(event));
     bus.$on('dragEnd'+ this.eventId, (event) => this.dragEnd(event));
     bus.$on('drop'+ this.eventId, (event) => this.drop(event));
+  },
+  render(h){
+    var that = this;
+    return h('div',{ 
+        on:{
+          click: function(event){
+            
+          },
+          dragOver:function(){
+            event.stopPropagation()
+            var tmp = that.sortList[0]
+            that.sortList.splice(0, 1, that.sortList[1])
+            that.sortList.splice(1, 1 , tmp)
+            console.log("fdfd")
+          }
+        }
+      }, this.$slots.default)
   }
 }
 </script>

@@ -10,28 +10,14 @@
     </div>  -->
     
     <Sortable v-model='dragList' :eventId='eventId1'>
-      <SortItem 
-        v-for="(item, index) in dragList"
-        :key="item" 
-        :item='item' 
-        :index='index'
-        :eventId='eventId1'>
-        {{item.name}}
-      </SortItem>      
+      <transition-group name="flip-list">
+        <div class="item" draggable="true" v-for="(item, index) in dragList" :key="index">{{item.name}}</div>    
+      </transition-group>
     </Sortable>
-    <div>{{dragList}}</div>  
 
     <Sortable v-model='dragList2' :eventId='eventId2'>
-      <SortItem 
-        v-for="(item, index) in dragList2"
-        :key="item" 
-        :item='item' 
-        :index='index'
-        :eventId='eventId2'>
-        {{item.name}}
-      </SortItem>      
+      <div v-for="(item, index) in dragList2" :key="index">{{item.name}}</div>      
     </Sortable>
-    <div>{{dragList2}}</div>  
   </div>
 </template>
 
