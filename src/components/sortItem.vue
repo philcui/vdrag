@@ -24,7 +24,6 @@ export default {
   props:['item', 'index', 'eventId'],
   methods:{
     dragStart(event, index){
-      console.log(this.item)
       bus.$emit('dragStart' + this.eventId, event, index, this.item)
     },
     dragOver(event, index){

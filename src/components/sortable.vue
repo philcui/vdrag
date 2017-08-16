@@ -37,11 +37,11 @@ export default {
       this.dragElement = event.currentTarget
       this.dragIndex = index
       
-      //当前拖拽的DOM元素
-      bus.dragElement = this.dragElement;
       //当前的需要安放的数据模型
       bus.item = item;
       bus.item.id = Date.now()
+
+      
     },
     dragOver(event, index, item){
       console.log(item != bus.item)
@@ -57,10 +57,10 @@ export default {
         var newItem = Object.assign({}, bus.item)
         //newItem.id = Date.now()
         this.sortList.splice(this.targetIndex, 0 , newItem)
-        // this.$nextTick(() => {
-        //   
-        // })
-        setTimeout(() => this.isChanging = false, 1000);
+        this.$nextTick(() => {
+          setTimeout(() => this.isChanging = false, 1000);
+        })
+        
       }
     },
     dragEnter(event){

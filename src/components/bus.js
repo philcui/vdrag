@@ -1,3 +1,5 @@
 import Vue from 'vue'
-
-export default new Vue; 
+var vue = new Vue({
+  dndInfo:{}
+})
+export default vue
