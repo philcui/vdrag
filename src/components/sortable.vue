@@ -103,22 +103,13 @@ export default {
     bus.$on('dragLeave'+ this.eventId, (event) => this.dragLeave(event));
     bus.$on('dragEnd'+ this.eventId, (event) => this.dragEnd(event));
     bus.$on('drop'+ this.eventId, (event) => this.drop(event));
+    //debugger
+    console.log(this.$el.children[0].children[0].addEventListener('click',function(){alert("fdf")}))
   },
   render(h){
     var that = this;
     return h('div',{ 
-        on:{
-          click: function(event){
-            
-          },
-          dragOver:function(){
-            event.stopPropagation()
-            var tmp = that.sortList[0]
-            that.sortList.splice(0, 1, that.sortList[1])
-            that.sortList.splice(1, 1 , tmp)
-            console.log("fdfd")
-          }
-        }
+        
       }, this.$slots.default)
   }
 }
