@@ -1,8 +1,6 @@
 <!--<template>
-  <div ref="haha">
-    <transition-group name="flip-list">
-      <slot></slot>
-    </transition-group>
+  <div>
+    <slot></slot>
   </div>
 </template>-->
 
@@ -31,36 +29,18 @@ export default {
   },
   props:['sortList', 'eventId'],
   methods:{
-    dragStart(event, index, item){
+    dragStart(event, index){
       event.dataTransfer.effectAllowed = 'move';
       event.dataTransfer.setData('Text', event.currentTarget.innerHTML)
       this.dragElement = event.currentTarget
       this.dragIndex = index
-      
-      //当前的需要安放的数据模型
-      bus.item = item;
-      bus.item.id = Date.now()
-
-      
     },
-    dragOver(event, index, item){
-      console.log(item != bus.item)
-      console.log('bus:'+ JSON.stringify(bus.item))
-      console.log('item:'+ JSON.stringify(item))
-      //if(event.currentTarget != this.dragElement && !this.isChanging){
-      if(item.id != bus.item.id && !this.isChanging){
-        console.log("gost")
+    dragOver(event, index){
+      event.preventDefault()
+      if(event.currentTarget != this.dragElement && !this.isChanging){
         this.targetIndex = index
         event.dataTransfer.dropEffect = 'move';
-        //this.change();
-        this.isChanging = true
-        var newItem = Object.assign({}, bus.item)
-        //newItem.id = Date.now()
-        this.sortList.splice(this.targetIndex, 0 , newItem)
-        this.$nextTick(() => {
-          setTimeout(() => this.isChanging = false, 1000);
-        })
-        
+        this.change();
       }
     },
     dragEnter(event){
@@ -71,18 +51,20 @@ export default {
     },
     dragEnd(event){
       this.sortList.forEach((item, index, arr) => {
-        //item.isGost = false;
         this.$set(item, 'isGost', false)  
       });
       console.log('end')
     },
     drop(event){
+      event.stopPropagation();
       console.log('drop')
     },
     change(){
       var dragIndex = this.dragIndex;
       var targetIndex = this.targetIndex;
       this.isChanging = true
+      console.log("dragindex:"+ dragIndex)
+      console.log("targetindex:"+ targetIndex)
       var tmp = this.sortList[dragIndex]
       this.sortList.splice(dragIndex, 1, this.sortList[targetIndex])
       this.sortList.splice(targetIndex, 1 , tmp)
@@ -97,20 +79,32 @@ export default {
     
   },
   mounted(){
-    bus.$on('dragStart'+ this.eventId, (event, index, item) => this.dragStart(event, index, item));
-    bus.$on('dragOver'+ this.eventId, (event, index, item) => this.dragOver(event, index, item));
-    bus.$on('dragEnter'+ this.eventId, (event) => this.dragEnter(event));
-    bus.$on('dragLeave'+ this.eventId, (event) => this.dragLeave(event));
-    bus.$on('dragEnd'+ this.eventId, (event) => this.dragEnd(event));
-    bus.$on('drop'+ this.eventId, (event) => this.drop(event));
-    //debugger
-    console.log(this.$el.children[0].children[0].addEventListener('click',function(){alert("fdf")}))
+    // var children = this.$el.children[0].children;
+    // children = [].slice.call(children)
+    // children.forEach((item, index, arr) => {
+    //   item.addEventListener('dragstart', (event) => {
+    //     this.dragStart(event, index)
+    //   })
+    //   item.addEventListener('dragover', (event) => {
+    //     this.dragOver(event, index)
+    //   })
+    //   item.addEventListener('dragend', () => {
+    //     this.dragEnd(event, index)
+    //   })
+    //   item.addEventListener('drop', () => {
+    //     this.drop(event, index)
+    //   })
+    // })
   },
   render(h){
     var that = this;
-    return h('div',{ 
-        
-      }, this.$slots.default)
+    return h('div',{
+      on:{
+        click:function(){
+          that.sortList.splice(1, 0 , {name:"hehe"})
+        }
+      }
+    }, this.$slots.default)
   }
 }
 </script>
@@ -126,7 +120,7 @@ export default {
     -webkit-user-drag: element;
     -khtml-user-drag: element;
     background: #ccc;
-     transition: all 0.3s;  
+     /* transition: all 0.3s;   */
   }
   .flip-list-move{
     transition: transform 0.3s;

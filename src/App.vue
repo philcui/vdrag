@@ -11,13 +11,13 @@
     
     <Sortable v-model='dragList' :eventId='eventId1'>
       <transition-group name="flip-list">
-        <div class="item" draggable="true" v-for="(item, index) in dragList" :key="index">{{item.name}}</div>    
+        <div class="item" draggable="true" v-for="(item, index) in dragList" :key="item" :hah="item.name">{{item.name}}</div>    
       </transition-group>
     </Sortable>
 
-    <Sortable v-model='dragList2' :eventId='eventId2'>
+    <!-- <Sortable v-model='dragList2' :eventId='eventId2'>
       <div v-for="(item, index) in dragList2" :key="index">{{item.name}}</div>      
-    </Sortable>
+    </Sortable> -->
   </div>
 </template>
 
@@ -104,5 +104,8 @@ export default {
 #eh{
   width: 0;
   height: 0;
+}
+.flip-list-move {
+  transition: transform 1s;
 }
 </style>
