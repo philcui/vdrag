@@ -100,8 +100,12 @@ export default {
     var that = this;
     return h('div',{
       on:{
-        click:function(){
-          that.sortList.splice(1, 0 , {name:"hehe"})
+        dragstart:function(event){
+          if(event.target === event.currentTarget){
+            return
+          }else{
+            that.sortList.splice(1, 0 , {name:"hehe"})
+          }
         }
       }
     }, this.$slots.default)
