@@ -11,7 +11,7 @@
     
     <Sortable v-model='dragList' :eventId='eventId1'>
       <transition-group name="flip-list">
-        <div class="item" draggable="true" v-for="(item, index) in dragList" :key="item" :hah="item.name">{{item.name}}</div>    
+        <div class="item" draggable="true" v-for="(item, index) in dragList" :key="item">{{item.name}}</div>    
       </transition-group>
     </Sortable>
 

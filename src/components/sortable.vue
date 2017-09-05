@@ -30,16 +30,17 @@ export default {
   props:['sortList', 'eventId'],
   methods:{
     dragStart(event, index){
+      index = this.getIndex(event.target, event.target.parentNode.childNodes);
       event.dataTransfer.effectAllowed = 'move';
       event.dataTransfer.setData('Text', event.currentTarget.innerHTML)
-      this.dragElement = event.currentTarget
+      this.dragElement = event.target
       this.dragIndex = index
     },
     dragOver(event, index){
       event.preventDefault()
-      if(event.currentTarget != this.dragElement && !this.isChanging){
-        this.targetIndex = index
+      if(event.target != this.dragElement && this.isDragElement(event.target) && !this.isChanging){
         event.dataTransfer.dropEffect = 'move';
+        this.targetIndex = this.getIndex(event.target, event.target.parentNode.childNodes);
         this.change();
       }
     },
@@ -73,6 +74,12 @@ export default {
       this.dragIndex = targetIndex
       this.$set(this.sortList[targetIndex], 'isGost', true)
       this.$emit('sort', this.sortList);
+    },
+    getIndex(item, list){
+      return [].indexOf.call(list, item)
+    },
+    isDragElement(el){
+      return el.hasAttribute('draggable')
     }
   },
   created(){
@@ -101,11 +108,16 @@ export default {
     return h('div',{
       on:{
         dragstart:function(event){
-          if(event.target === event.currentTarget){
-            return
-          }else{
-            that.sortList.splice(1, 0 , {name:"hehe"})
-          }
+          that.dragStart(event)
+        },
+        dragover: function(event){
+          that.dragOver(event)
+        },
+        drop: function(event){
+          that.drop(event)
+        },
+        dragend : function(event){
+          that.dragEnd(event)
         }
       }
     }, this.$slots.default)
